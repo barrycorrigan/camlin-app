@@ -1,5 +1,16 @@
 import { defineStore } from 'pinia';
-export const useTransformersStore = defineStore('transformers', {
+
+// Define the type for the filters
+interface FilterState {
+  alpha: boolean;
+  bravo: boolean;
+  charlie: boolean;
+  delta: boolean;
+  echo: boolean;
+}
+
+export const useTransformersStore = defineStore({
+  id: 'transformers',
   state: () => ({
     transformers: [
       {
@@ -92,17 +103,67 @@ export const useTransformersStore = defineStore('transformers', {
           {"timestamp": "2024-07-12T00:00:00Z", "voltage": "20102"}
         ]
       }
-    ]
+    ],
+    filters: {
+      alpha: true,
+      bravo: true,
+      charlie: true,
+      delta: true,
+      echo: true,
+    } as FilterState,
   }),
-  actions: {},
+  actions: {
+    setFilters(updatedFilters: FilterState) {
+      this.filters = updatedFilters;
+      localStorage.setItem('transformer-filters', JSON.stringify(this.filters));  // Save filters to localStorage
+    },
+    loadFiltersFromLocalStorage() {
+      const savedFilters = localStorage.getItem('transformer-filters');
+      if (savedFilters) {
+        this.filters = JSON.parse(savedFilters);
+      }
+    },
+  },
   getters: {
     getTransformers(state) {
       return state.transformers;
     },
+    filteredTransformers(state) {
+      return state.transformers.filter((transformer) => {
+        if (state.filters.alpha && transformer.name.includes('Alpha')) {
+          return true;
+        }
+        if (state.filters.bravo && transformer.name.includes('Bravo')) {
+          return true;
+        }
+        if (state.filters.charlie && transformer.name.includes('Charlie')) {
+          return true;
+        }
+        if (state.filters.delta && transformer.name.includes('Delta')) {
+          return true;
+        }
+        if (state.filters.echo && transformer.name.includes('Echo')) {
+          return true;
+        }
+        return false;
+      });
+    },
     hasTransformers(state) {
       return state.transformers && state.transformers.length > 0;
-    }
+    },
+  },
+  persist: {
+    key: 'transformer-store',
+    storage: localStorage,
   },
 });
 
-export default useTransformersStore;
+// Sync Pinia store with localStorage changes across tabs
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'transformer-filters') {
+      const store = useTransformersStore();
+      store.loadFiltersFromLocalStorage();
+    }
+  });
+}

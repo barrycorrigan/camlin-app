@@ -2,6 +2,8 @@
 
 This is a Vue 3 app built with Vite and TypeScript and Pinia for state management. This app is containerized using Docker and served with Nginx in production.
 
+We are also using [Tailwind](https://tailwindcss.com/) for some of the CSS Styling
+
 ## Prerequisites
 
 To build and run this application using Docker, ensure you have the following installed on your machine:
