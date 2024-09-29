@@ -1,0 +1,1 @@
+{"root":["./src/main.ts","./src/vite-env.d.ts","./src/store/index.ts","./src/app.vue","./src/components/linechart.vue","./src/components/layout/header.vue","./src/components/transformers/transformerfilter.vue","./src/components/transformers/transformeritem.vue","./src/components/ui/basecard.vue","./src/pages/transformers/transformerslist.vue"],"version":"5.6.2"}
