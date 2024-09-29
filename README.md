@@ -10,6 +10,23 @@ To build and run this application using Docker, ensure you have the following in
 
 - [Docker](https://www.docker.com/products/docker-desktop) (Install Docker Desktop for Windows/macOS, or Docker CLI for Linux)
 
+Ensure you are running Node.js version 20 or higher. You can verify your current Node.js version by running the following command:
+
+```bash
+node -v
+```
+
+If your version is below 20, please update Node.js to meet the minimum required version.
+
+#### Note for NVM users:
+
+If you're using NVM (Node Version Manager), you can switch to the required version with the following command:
+
+```bash
+nvm install 20
+nvm use 20
+```
+
 ## Cloning the Repository
 
 To get started, clone this repository:
